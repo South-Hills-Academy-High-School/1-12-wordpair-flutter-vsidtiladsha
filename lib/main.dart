@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -120,6 +122,31 @@ class Gerneratorpage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class Favoritespage extends StatelessWidget {
+  @override 
+  Widget build(BuildContext context) {
+   var appState = context.watch<MyAppState>();
+    if(appState.favorites.isEmpty) {
+      return Center(
+        child: Text('Blank Page'),
+      );
+    }
+
+    return ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text('YOu have ${appState.favorites.length}'),),
+      for(var pair in appState.favorites) 
+        ListTile(
+          leading: Icon(Icons.favorite),
+          title: Text(pair.asLowerCase),
+        ),
+      ],
     );
   }
 }
